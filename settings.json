@@ -1,0 +1,38 @@
+{
+    "qrdata":[
+        {
+            "visualname" : "Total Invoice Value",
+            "qrname" : "TotInvVal",
+            "dbname" : "TOTINVVAL"
+            
+        },
+        {
+            "visualname" : "Irn Number",
+            "qrname" : "Irn",
+            "dbname" : "IRNNO"
+        },
+        {
+            "visualname" : "Seller GST Number",
+            "qrname" : "SellerGstin",
+            "dbname" : "SELLGSTN"
+        },
+        {
+            "visualname" : "Buyer GST Number",
+            "qrname" : "BuyerGstin",
+            "dbname" : "BUYGSTN"
+        },
+        {
+            "visualname":"QR DOC Number",
+            "qrname":"DocNo",
+            "dbname" : "QRDOCNUM"
+        },
+        {
+            "visualname":"QR DOC Date",
+            "qrname":"DocDt",
+            "dbname" : "QRDOCDATE"
+
+        }
+
+    ]
+
+}
