@@ -1,0 +1,82 @@
+D:\Projects\Python\Sample Folder
+D:\Projects\Python\OutputFolder
+--------Started Working---------
+MakingDIR
+OCRTEMPLATE:::::[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/HM97GT1TH-59'
+MakingDIR
+OCRTEMPLATE:::::[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/HM97GT1TH-59/temp/'
+MakingDIR
+OCRTEMPLATE:::::[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/HM97GT1TH-59/temp/images'
+.....Parsing OCR QR data......
+[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/HM97GT1TH-59/temp/images/'
+[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/HM97GT1TH-59/temp/images/qrimages'
+Time taken : 8.666932106018066
+YES
+:::::::::::::::::::::::::::BARECODE DATA :::::::::::::::::::::::::::
+b'eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ0NDQwNUM3ODFFNDgyNTA3MkIzNENBNEY4QkRDNjA2Qzg2QjU3MjAiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJSRVFGeDRIa2dsQnlzMHlrLUwzR0JzaHJWeUEifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjI5QUFJQ0EzOTE4SjFaRVwiLFwiQnV5ZXJHc3RpblwiOlwiMjdBQUNDSTA5NTRKMVpJXCIsXCJEb2NOb1wiOlwiMjE5MTUxMDAxNTQ2MTNcIixcIkRvY1R5cFwiOlwiSU5WXCIsXCJEb2NEdFwiOlwiMDYvMTAvMjAyMFwiLFwiVG90SW52VmFsXCI6MzI2NjU2LjA0LFwiSXRlbUNudFwiOjEsXCJNYWluSHNuQ29kZVwiOlwiOTk4MzY1XCIsXCJJcm5cIjpcIjQ0ODc4NDI0ZDQwYThkODcxNTg5ZmVjNWU0YmY1N2M0ZWI1NWMyNmRiOTUwZTQ0NTczZWZiMjIyMDFjZWM2ZTVcIixcIklybkR0XCI6XCIyMDIwLTEwLTA2IDIxOjIyOjAwXCJ9IiwiaXNzIjoiTklDIn0.MiSXcLwSqQqY30o7Utn9k82KRlta11HSVpm4vh0kdUUg-he583v8F3swFML1SkLfz104juYZ4USVz7NLElvao9oS8yK-uDsbLDip3NjtGHo1R_y5wEnI-TjJvuxx3YHGtynakNdszeJRGdt7ls_i1V21fvhJDfY6ccdqndeLUbrLL0YtUye6RksRiPHKT35flHMnq6pLYK36JH80x8c8E8-x1jcYctoCFiZBikRf8tA0FRiuimsFdRQB3O2dej0ZjciSYFGGNSj3LxPCZSngOPrgW8JCSVN1r3LivN3RapJ9xfsBvJPTrb1SHmNv9oT7Vs1A9FYI1UWfW1wqkao3Gg'
+:::::::::::::::::::::::::::BARECODE DATA END:::::::::::::::::::::::::::
+----Writing To DB----
+Database List String::: PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE
+Values List String::: :pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date
+insert into M_VENDOR_PDF_PARSING(PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE,FILE_AS) values(:pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date,:file_as)
+Error occurred:
+DPI-1047: Cannot locate a 64-bit Oracle Client library: "The specified module could not be found". See https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html for help
+MakingDIR
+OCRTEMPLATE:::::[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/Signpost_Estimate_QR_CodeTest'
+MakingDIR
+OCRTEMPLATE:::::[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/Signpost_Estimate_QR_CodeTest/temp/'
+MakingDIR
+OCRTEMPLATE:::::[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/Signpost_Estimate_QR_CodeTest/temp/images'
+.....Parsing OCR QR data......
+[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/Signpost_Estimate_QR_CodeTest/temp/images/'
+[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/Signpost_Estimate_QR_CodeTest/temp/images/qrimages'
+Time taken : 1.9599206447601318
+YES
+:::::::::::::::::::::::::::BARECODE DATA :::::::::::::::::::::::::::
+b'eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNUY0NDI2NjE3QTc5MzhCRTFCQTA2REJFRTkxQTQyNzU4NEVEQUIiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJFVjlFSm1GNmVUaS1HNkJ0dnVrYVFuV0U3YXMifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjA2QUFBQ0k2NjU3RzFaSlwiLFwiQnV5ZXJHc3RpblwiOlwiMDdBQUFDVDA4MzVEMVpTXCIsXCJEb2NOb1wiOlwiSUFIUjIwMjFETjAxMTlcIixcIkRvY1R5cFwiOlwiSU5WXCIsXCJEb2NEdFwiOlwiMDUvMDYvMjAyMFwiLFwiVG90SW52VmFsXCI6MTE4MDAwMC4wLFwiSXRlbUNudFwiOjEsXCJNYWluSHNuQ29kZVwiOlwiOTk4MzY1XCIsXCJJcm5cIjpcIjhhMWQ1ZDdkMTQ2ZGNlYTljMDdlZDRkNmEwM2M3NWNiMDk0MGNmOGIzNmRjZGJiZTQxYzU1NWI5ZjUwMTJkMDhcIn0iLCJpc3MiOiJOSUMifQ.CYk7TyKNmxvgh8sgvnUU7kB5e2W7cayjzHrP3PNm_p3js_8NqninXDmh_TqY-PBfMPx7sQwkcy0tuEJ7xHx9sgABZ8O0NUFqQYkXLHj9HtkOy91dXB8g1BmwCfPI30Y03TPauy0R2e_gqusLvC_Ls_9WqcPusD4VVFopd-_XneNeRPXDdlWuCKSKuoPJgy0l02ulJz3MlW9TZM3sYy1Few97oWt9Z5alpbb-DLu4QbZU4SB2Qpm0p8VTPcQXuaLOriwBGuxzzqOO99TgNIOIkwGP_B6EwSKds3rAd5B6uuMvMa21EpEvkVkBxVt4LNmAT5ScZrXdJp_GOmnayVoZgA'
+:::::::::::::::::::::::::::BARECODE DATA END:::::::::::::::::::::::::::
+----Writing To DB----
+Database List String::: PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE
+Values List String::: :pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date
+insert into M_VENDOR_PDF_PARSING(PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE,FILE_AS) values(:pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date,:file_as)
+Error occurred:
+DPI-1047: Cannot locate a 64-bit Oracle Client library: "The specified module could not be found". See https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html for help
+Time taken to Work on 2 files : 21.739421844482422
+D:\Projects\Python\Sample Folder
+D:\Projects\Python\OutputFolder
+:::::::::::::::::::::::::::::::::: Process Initiated at 29-10-2020_23-04-05 ::::::::::::::::::::::::::::::::::
+--------Started Working---------
+MakingDIR
+MakingDIR
+MakingDIR
+.....Parsing OCR QR data......
+[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/HM97GT1TH-59/temp/images/'
+Time taken : 5.0569353103637695
+YES
+:::::::::::::::::::::::::::BARECODE DATA :::::::::::::::::::::::::::
+b'eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ0NDQwNUM3ODFFNDgyNTA3MkIzNENBNEY4QkRDNjA2Qzg2QjU3MjAiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJSRVFGeDRIa2dsQnlzMHlrLUwzR0JzaHJWeUEifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjI5QUFJQ0EzOTE4SjFaRVwiLFwiQnV5ZXJHc3RpblwiOlwiMjdBQUNDSTA5NTRKMVpJXCIsXCJEb2NOb1wiOlwiMjE5MTUxMDAxNTQ2MTNcIixcIkRvY1R5cFwiOlwiSU5WXCIsXCJEb2NEdFwiOlwiMDYvMTAvMjAyMFwiLFwiVG90SW52VmFsXCI6MzI2NjU2LjA0LFwiSXRlbUNudFwiOjEsXCJNYWluSHNuQ29kZVwiOlwiOTk4MzY1XCIsXCJJcm5cIjpcIjQ0ODc4NDI0ZDQwYThkODcxNTg5ZmVjNWU0YmY1N2M0ZWI1NWMyNmRiOTUwZTQ0NTczZWZiMjIyMDFjZWM2ZTVcIixcIklybkR0XCI6XCIyMDIwLTEwLTA2IDIxOjIyOjAwXCJ9IiwiaXNzIjoiTklDIn0.MiSXcLwSqQqY30o7Utn9k82KRlta11HSVpm4vh0kdUUg-he583v8F3swFML1SkLfz104juYZ4USVz7NLElvao9oS8yK-uDsbLDip3NjtGHo1R_y5wEnI-TjJvuxx3YHGtynakNdszeJRGdt7ls_i1V21fvhJDfY6ccdqndeLUbrLL0YtUye6RksRiPHKT35flHMnq6pLYK36JH80x8c8E8-x1jcYctoCFiZBikRf8tA0FRiuimsFdRQB3O2dej0ZjciSYFGGNSj3LxPCZSngOPrgW8JCSVN1r3LivN3RapJ9xfsBvJPTrb1SHmNv9oT7Vs1A9FYI1UWfW1wqkao3Gg'
+:::::::::::::::::::::::::::BARECODE DATA END:::::::::::::::::::::::::::
+----Writing To DB----
+Database List String::: PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE
+Values List String::: :pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date
+insert into M_VENDOR_PDF_PARSING(PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE,FILE_AS) values(:pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date,:file_as)
+Error occurred:
+DPI-1047: Cannot locate a 64-bit Oracle Client library: "The specified module could not be found". See https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html for help
+MakingDIR
+MakingDIR
+MakingDIR
+.....Parsing OCR QR data......
+[WinError 183] Cannot create a file when that file already exists: './ConvertedInvoices/Signpost_Estimate_QR_CodeTest/temp/images/'
+Time taken : 1.118790864944458
+YES
+:::::::::::::::::::::::::::BARECODE DATA :::::::::::::::::::::::::::
+b'eyJhbGciOiJSUzI1NiIsImtpZCI6IjExNUY0NDI2NjE3QTc5MzhCRTFCQTA2REJFRTkxQTQyNzU4NEVEQUIiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJFVjlFSm1GNmVUaS1HNkJ0dnVrYVFuV0U3YXMifQ.eyJkYXRhIjoie1wiU2VsbGVyR3N0aW5cIjpcIjA2QUFBQ0k2NjU3RzFaSlwiLFwiQnV5ZXJHc3RpblwiOlwiMDdBQUFDVDA4MzVEMVpTXCIsXCJEb2NOb1wiOlwiSUFIUjIwMjFETjAxMTlcIixcIkRvY1R5cFwiOlwiSU5WXCIsXCJEb2NEdFwiOlwiMDUvMDYvMjAyMFwiLFwiVG90SW52VmFsXCI6MTE4MDAwMC4wLFwiSXRlbUNudFwiOjEsXCJNYWluSHNuQ29kZVwiOlwiOTk4MzY1XCIsXCJJcm5cIjpcIjhhMWQ1ZDdkMTQ2ZGNlYTljMDdlZDRkNmEwM2M3NWNiMDk0MGNmOGIzNmRjZGJiZTQxYzU1NWI5ZjUwMTJkMDhcIn0iLCJpc3MiOiJOSUMifQ.CYk7TyKNmxvgh8sgvnUU7kB5e2W7cayjzHrP3PNm_p3js_8NqninXDmh_TqY-PBfMPx7sQwkcy0tuEJ7xHx9sgABZ8O0NUFqQYkXLHj9HtkOy91dXB8g1BmwCfPI30Y03TPauy0R2e_gqusLvC_Ls_9WqcPusD4VVFopd-_XneNeRPXDdlWuCKSKuoPJgy0l02ulJz3MlW9TZM3sYy1Few97oWt9Z5alpbb-DLu4QbZU4SB2Qpm0p8VTPcQXuaLOriwBGuxzzqOO99TgNIOIkwGP_B6EwSKds3rAd5B6uuMvMa21EpEvkVkBxVt4LNmAT5ScZrXdJp_GOmnayVoZgA'
+:::::::::::::::::::::::::::BARECODE DATA END:::::::::::::::::::::::::::
+----Writing To DB----
+Database List String::: PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE
+Values List String::: :pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date
+insert into M_VENDOR_PDF_PARSING(PDFNAME, TOTINVVAL, IRNNO, SELLGSTN, BUYGSTN, QRDOCNUM, QRDOCDATE, CREATED_DATE,FILE_AS) values(:pdfname,:totinvval,:irnno,:sellgstn,:buygstn,:qrdocnum,:qrdocdate,:created_date,:file_as)
+Error occurred:
+DPI-1047: Cannot locate a 64-bit Oracle Client library: "The specified module could not be found". See https://cx-oracle.readthedocs.io/en/latest/user_guide/installation.html for help
+Time taken to Work on 2 files : 15.183748483657837
+:::::::::::::::::::::::::::::::::: Process Ended at 29-10-2020_23-04-05 ::::::::::::::::::::::::::::::::::
