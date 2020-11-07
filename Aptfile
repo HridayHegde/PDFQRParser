@@ -4,3 +4,4 @@ tesseract-ocr-eng
 :repo:deb http://mirrors.kernel.org/ubuntu/ xenial main
 libaio-dev
 libgl1-mesa-glx
+libzbar-dev
