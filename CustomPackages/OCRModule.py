@@ -9,7 +9,7 @@ import re
 
 import csv
 import json
-import zxing
+#import zxing
 
 import fitz
 import pdf2image
@@ -21,6 +21,7 @@ from copy import deepcopy
 import cv2
 
 import pyzbar.pyzbar as pyzbar
+from pyzbar.pyzbar import ZBarSymbol
 
 from unidecode import unidecode
 
@@ -59,7 +60,7 @@ def save_images(pil_images,destination):
 def GenerateImagesfromPDF(filepath,destination):
     
     start_time = time.time()
-    pil_images = pdf2image.convert_from_path(filepath, dpi=DPI, output_folder=OUTPUT_FOLDER, first_page=FIRST_PAGE, last_page=LAST_PAGE, fmt=FORMAT, thread_count=THREAD_COUNT, userpw=USERPWD, use_cropbox=USE_CROPBOX, strict=STRICT)
+    pil_images = pdf2image.convert_from_path(filepath, dpi=DPI, output_folder=OUTPUT_FOLDER, first_page=FIRST_PAGE, last_page=LAST_PAGE, fmt=FORMAT, thread_count=THREAD_COUNT, userpw=USERPWD, use_cropbox=USE_CROPBOX, strict=STRICT,poppler_path='./poppler/bin')
     
     print ("Time taken : " + str(time.time() - start_time))
     index = save_images(pil_images,destination)
@@ -79,7 +80,7 @@ def GenerateOCR(filepath):
         x.write(text)
     return text
 
-def GenerateOCRTemplate(file):
+"""def GenerateOCRTemplate(file):
     destinationpath = './TemplateGenerator/Output/'
     try:
         os.mkdir(destinationpath+'temp')
@@ -96,9 +97,9 @@ def GenerateOCRTemplate(file):
     try:
         shutil.rmtree(destinationpath+'temp')
     except OSError as e:
-        print(e)
+        print(e)"""
 
-def ParseOCR(datetime,filepath,text,barcodedata = {},reqfieldsfile = "requiredFields.json"):
+"""def ParseOCR(datetime,filepath,text,barcodedata = {},reqfieldsfile = "requiredFields.json"):
     print("....Parsing OCR.....")
 
     writedict = {}
@@ -182,7 +183,7 @@ def ParseOCR(datetime,filepath,text,barcodedata = {},reqfieldsfile = "requiredFi
         print("Error no template for file in requiredFields.json")
     csv_file.close()
 
-
+"""
 
 
 def ParseOCR_QRcode(file):
@@ -216,7 +217,7 @@ def ParseOCR_QRcode(file):
         print(e)
 
     start_time = time.time()
-    pil_images = pdf2image.convert_from_path(file, dpi=DPI, output_folder=OUTPUT_FOLDER, first_page=FIRST_PAGE, last_page=LAST_PAGE, fmt=FORMAT, thread_count=THREAD_COUNT, userpw=USERPWD, use_cropbox=USE_CROPBOX, strict=STRICT)
+    pil_images = pdf2image.convert_from_path(file, dpi=DPI, output_folder=OUTPUT_FOLDER, first_page=FIRST_PAGE, last_page=LAST_PAGE, fmt=FORMAT, thread_count=THREAD_COUNT, userpw=USERPWD, use_cropbox=USE_CROPBOX, strict=STRICT,poppler_path='./poppler/bin')
     print ("Time taken : " + str(time.time() - start_time))
 
     index = 1
@@ -225,7 +226,7 @@ def ParseOCR_QRcode(file):
         index += 1
     for filename in os.listdir(temploc+"qrimages/"):
         image1 = cv2.imread(os.path.join(temploc+"qrimages/",filename))
-        decodedobjects = pyzbar.decode(image1)
+        decodedobjects = pyzbar.decode(image1,symbols=[ZBarSymbol.QRCODE])
         if decodedobjects:
             print("YES")
             barcode_data = decodedobjects[0].data

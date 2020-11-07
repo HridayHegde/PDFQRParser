@@ -13,6 +13,7 @@ import shutil
 
 from os import listdir
 from os.path import isfile, join
+from datetime import datetime
 
 
 # Initialize the Flask application
@@ -130,6 +131,9 @@ def result():
     
     finished = False
 
+    now = datetime.now()
+    dt_string1 = now.strftime("%d-%m-%Y_%H-%M-%S")
+    print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_string1)+" ::::::::::::::::::::::::::::::::::")
     return render_template('upload_main.html', filenames=filenames,heading="Zipped Output")
 
 
@@ -174,4 +178,4 @@ def download_file():
 
 if __name__ == '__main__':
     app.secret_key = os.urandom(12)
-    serve(app,host='0.0.0.0',port=50541)
+    serve(app,host='0.0.0.0',port=50541,threads = True)

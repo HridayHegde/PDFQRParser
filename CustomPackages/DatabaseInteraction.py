@@ -4,7 +4,9 @@ from datetime import datetime
 import json
 
 settingsfile = "settings.json"
-def commitToDB(datadict):
+def commitToDB(datadict,file):
+    with open(file, 'rb') as f:
+        file_as = f.read()
     pdfname = datadict["PDFName"]
     del datadict["PDFName"]
     print("----Writing To DB----")
@@ -13,12 +15,19 @@ def commitToDB(datadict):
     visnames = []
     for x in data["qrdata"]:
         visnames.append(x["visualname"])
+    for g in data["extractdata"]:
+        visnames.append(x["visualname"])    
 
     dblist = ["PDFNAME"]
     for l in visnames:
         for x in data["qrdata"]:
             if x["visualname"] == l:
                 dblist.append(x["dbname"])
+    for g in visnames:
+        for t in data["extractdata"]:
+            if t["visualname"] ==l:
+                dblist.append(t["dbname"])
+
     
     datalist = [pdfname]
     for z in visnames:
@@ -47,8 +56,9 @@ def commitToDB(datadict):
         else:
             valuesliststring = valuesliststring+":"+b.lower()
     print("Values List String::: "+valuesliststring)
+    datalist.append(file_as)
     # construct an insert statement that add a new row to the billing_headers table
-    string1 = 'insert into M_VENDOR_PDF_PARSING('+dbliststring+') values('+valuesliststring+')'
+    string1 = 'insert into M_VENDOR_PDF_PARSING('+dbliststring+',FILE_AS'+') values('+valuesliststring+',:file_as'+')'
     print(string1)
     sql = (string1)
 

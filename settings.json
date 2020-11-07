@@ -33,6 +33,15 @@
 
         }
 
+    ],
+    "extractdata":[
+        {
+            "visualname": "Invalid Activity",
+            "dbname":"INVACTIVITY",
+            "regexexp":"Invalid activity ",
+            "dataregex":"(-[0-9,]+.[0-9]+)"
+        }
+
     ]
 
 }
