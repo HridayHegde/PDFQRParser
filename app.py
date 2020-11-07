@@ -91,6 +91,7 @@ def upload():
             # folder we setup
            
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #os.remove(file)
             # Save the filename into a list, we'll use it later
             
             x = z+"_RequiredFiledsOnly.csv"

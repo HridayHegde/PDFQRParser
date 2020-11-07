@@ -85,6 +85,8 @@ def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
         
         extracteddata = ParseLines(f)
         if extracteddata:
+            print("Extracted Data :::::::::::: ")
+            print(extracteddata)
             writedata.update(extracteddata)
         if writedata:
             writer.writerow(writedata)
