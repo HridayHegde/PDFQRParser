@@ -17,16 +17,19 @@ outputfolder = "./OutputFolder"
 requirementsfile = "settings.json"
 
 def ParseLines(file):
+    print(":::::::::::::::::Extracting Field::::::::::::::")
     tempdict = {}
     rf = open(requirementsfile)
     data = json.load(rf)
     for x in data['extractdata']:
         text = OCRM.GenerateOCR(file)
+        print(text)
         regexp = x['regexexp'] + x['dataregex']
         try:
             regdata = re.search(regexp,text,re.MULTILINE)
         except:
             print("No such field in text") 
+        print(regdata)
         try:
             actualdata = re.search(x['dataregex'],regdata.group(0))
             finaldata = actualdata.group(0)

@@ -16,20 +16,19 @@ def commitToDB(datadict,file):
     for x in data["qrdata"]:
         visnames.append(x["visualname"])
     for g in data["extractdata"]:
-        visnames.append(x["visualname"])    
+        visnames.append(g["visualname"])    
 
     dblist = ["PDFNAME"]
     for l in visnames:
         for x in data["qrdata"]:
             if x["visualname"] == l:
                 dblist.append(x["dbname"])
-    for g in visnames:
         for t in data["extractdata"]:
             if t["visualname"] ==l:
                 dblist.append(t["dbname"])
-
     
     datalist = [pdfname]
+    print(visnames)
     for z in visnames:
         try:
             datalist.append(datadict[z])

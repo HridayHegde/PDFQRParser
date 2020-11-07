@@ -27,7 +27,7 @@ from unidecode import unidecode
 
 from CustomPackages import DatabaseInteraction as DI
 #IMAGE GENERATION VARIABLES
-DPI = 500
+DPI = 600
 OUTPUT_FOLDER = None
 FIRST_PAGE = None
 LAST_PAGE = None
@@ -74,7 +74,7 @@ def GenerateOCR(filepath):
     index = GenerateImagesfromPDF(filepath,destinationpath)
     text = ""
     for x in range(1,index):
-        text += "\n" + pytesseract.image_to_string(Image.open(destinationpath+'temp/images/page_'+str(x)+'.jpg'))
+        text += "\n" + pytesseract.image_to_string(Image.open(destinationpath+'temp/images/page_'+str(x)+'.jpg'),lang='eng',config="--psm 6")
     with open(destinationpath+'temp/'+"pytesseractextract.txt","w+") as x:
         text = unidecode(text)
         x.write(text)
