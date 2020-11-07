@@ -13,3 +13,6 @@ cx_Oracle
 libaio
 Unidecode
 opencv-python
+pytesseract==0.3.4
+zxing==0.11
+libaio
