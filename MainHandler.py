@@ -111,4 +111,5 @@ def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
     print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_stringend)+" ::::::::::::::::::::::::::::::::::")
     return True
 
+
 #DecryptQR()
