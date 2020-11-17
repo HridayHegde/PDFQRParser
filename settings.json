@@ -9,7 +9,7 @@
         {
             "visualname" : "Irn Number",
             "qrname" : "Irn",
-            "dbname" : "IRNNO"
+            "dbname" : "IRN_NO_TEXT"
         },
         {
             "visualname" : "Seller GST Number",

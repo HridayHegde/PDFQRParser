@@ -34,9 +34,11 @@ def commitToDB(datadict,file):
             datalist.append(datadict[z])
         except:
             print("Input Field Error" + z)
+            datalist.append("NA")
 
 
     dblist.append("CREATED_DATE")
+    dblist.append("FILE_AS")
     creationdate = datetime.now()
     datalist.append(creationdate)
 
@@ -57,8 +59,15 @@ def commitToDB(datadict,file):
     print("Values List String::: "+valuesliststring)
     datalist.append(file_as)
     # construct an insert statement that add a new row to the billing_headers table
-    string1 = 'insert into M_VENDOR_PDF_PARSING('+dbliststring+',FILE_AS'+') values('+valuesliststring+',:file_as'+')'
+    #+',FILE_AS'
+    #+',:file_as'
+    #M_VENDOR_PDF_PARSING
+    string1 = 'insert into M_VENDOR_PDF_PARSING('+dbliststring+') values('+valuesliststring+')'
     print(string1)
+    for i,x in enumerate(datalist):
+        print(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+        if i  < ((len(datalist))-1):
+             print(x)
     sql = (string1)
 
     try:
