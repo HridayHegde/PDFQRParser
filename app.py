@@ -108,12 +108,15 @@ def upload():
     filenames.append("output_zip.zip")
     
     head = "Zipped Output"
+    print("Processing.....")
     return render_template('loading.html', filenames=filenames,heading=head)
 
 @app.route('/status')
 def upload_thread_status():
-    print( "Return the status of the worker thread")
-    print(finished)
+    #print( "Return the status of the worker thread")
+    #print(finished)
+    if finished == True:
+        print("Task Completed")
     return jsonify(dict(status=('finished' if finished else 'running')))
 
 
