@@ -19,6 +19,9 @@ def jwtdecode(encodeddata,jsonfilen,filepath):
     data = json.load(f)
 
     outputdict = {}
+    #encodeddata = encodeddata.encode(encoding='UTF-8')
+    encodeddata = encodeddata.replace("\\r".encode(encoding='UTF-8'),"".encode(encoding='UTF-8'))
+    encodeddata = encodeddata.replace("\\n".encode(encoding='UTF-8'),"".encode(encoding='UTF-8'))
     x = jwt.decode(encodeddata,secret,verify=False)
 
     datay = x.get("data")

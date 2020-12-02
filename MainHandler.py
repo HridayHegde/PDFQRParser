@@ -6,6 +6,8 @@ import csv
 import json
 from pathlib import Path
 import re
+import shutil
+
 #Custom
 from CustomPackages import OCRModule as OCRM
 from CustomPackages import jwtdecoding as JWTD
@@ -109,6 +111,14 @@ def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
     nowend = datetime.now()
     dt_stringend = now.strftime("%d-%m-%Y_%H-%M-%S")
     print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_stringend)+" ::::::::::::::::::::::::::::::::::")
+    try:
+	    shutil.rmtree("ConvertedInvoices")
+    except OSError as e:
+	    print(e)
+    try:
+        os.mkdir("ConvertedInvoices")
+    except OSError as e:
+        print(e)
     return True
 
 
