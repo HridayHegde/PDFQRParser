@@ -20,7 +20,7 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 th = Thread()
-finished = False
+finished = "running"
 
 MYDIR = os.path.dirname(__file__)
 # This is the path to the upload directory
@@ -45,7 +45,7 @@ def allowed_file(filename):
 @app.route('/')
 def index():
     global finished
-    finished = False 
+    finished = "running" 
     try:
 	    shutil.rmtree("ConvertedInvoices")
     except OSError as e:
@@ -114,10 +114,17 @@ def upload():
 @app.route('/status')
 def upload_thread_status():
     #print( "Return the status of the worker thread")
-    #print(finished)
-    if finished == True:
+    global finished
+    print(finished)
+    status = "running"
+    if finished == 'finished':
         print("Task Completed")
-    return jsonify(dict(status=('finished' if finished else 'running')))
+        status = 'finished'
+    elif finished == "errored":
+        status = "errored"
+    else:
+        status = "running"
+    return jsonify(dict(status=(status)))
 
 
 def upload_async():
@@ -133,13 +140,16 @@ def result():
     """ Just give back the result of your heavy work """
     filenames = [f for f in listdir(app.config["OUTPUT_FOLDER"]) if isfile(join(app.config["OUTPUT_FOLDER"], f))]
     
-    finished = False
+    finished = 'running'
 
     now = datetime.now()
     dt_string1 = now.strftime("%d-%m-%Y_%H-%M-%S")
     print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_string1)+" ::::::::::::::::::::::::::::::::::")
     return render_template('upload_main.html', filenames=filenames,heading="Zipped Output")
 
+@app.route('/error')
+def error():
+    return render_template("error.html")
 
 @app.route('/uploadjson', methods=['POST'])
 def uploadmain():

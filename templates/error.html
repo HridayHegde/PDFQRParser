@@ -20,23 +20,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script>
-      $(document).ready(function() {
-        var refresh_id = setInterval(function() {
-            $.get(
-              "{{ url_for('upload_thread_status') }}",
-              function(data) {
-                console.log(data);
-                if (data.status == 'finished') {
-                  window.location.replace("{{ url_for('result',files=filenames,head=heading) }}");
-                }
-                else if(data.status == 'errored'){
-                    console.log("Errored On Page")
-                    window.location.replace("{{ url_for('error') }}")
-                }
-              }
-            )}
-          , 1000);
-      });
+      
     </script>
 
 </head>
@@ -56,7 +40,7 @@
     <header class="masthead" style="background-image:url('static/img/header-bg.jpg');">
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading text-uppercase"><span>Loading.......</span></div>
+                <div class="intro-heading text-uppercase"><span>Error</span></div>
             </div>
         </div>
     </header>
