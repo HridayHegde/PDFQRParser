@@ -7,6 +7,12 @@ from werkzeug.utils import secure_filename
 from threading import Thread
 from pathlib import Path
 
+#session handling
+from uuid import uuid4
+from flask import session
+import queue
+
+
 import json
 import MainHandler as MH
 import shutil
@@ -20,8 +26,8 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 th = Thread()
-finished = "running"
-
+#finished = "running"
+#sessionid = ""
 MYDIR = os.path.dirname(__file__)
 # This is the path to the upload directory
 app.config['UPLOAD_FOLDER'] = 'OriginFolder/'
@@ -32,6 +38,28 @@ app.config['TEMPLATE_FOLDER']='TemplateGenerator/Uploads/'
 app.config['TEMPLATE_OUTPUT']='TemplateGenerator/Output/'
 # These are the extension that we are accepting to be uploaded
 app.config['ALLOWED_EXTENSIONS'] = set(['pdf','PDF'])
+
+#session Handling
+statusdict = {}
+
+    
+def createdefaultfolders():
+    try:
+        shutil.rmtree(app.config['UPLOAD_FOLDER']+session.get('number')+"/")
+    except OSError as e:
+        print(e)
+    try:
+        shutil.rmtree(app.config['OUTPUT_FOLDER']+session.get('number')+"/")
+    except OSError as e:
+        print(e)
+    try:
+        os.mkdir(app.config['UPLOAD_FOLDER']+session.get('number')+"/")
+    except OSError as e:
+        print(e)
+    try:
+        os.mkdir(app.config['OUTPUT_FOLDER']+session.get('number')+"/")
+    except OSError as e:
+        print(e)
 
 
 # For a given file, return whether it's an allowed type or not
@@ -44,24 +72,16 @@ def allowed_file(filename):
 # value of the operation
 @app.route('/')
 def index():
-    global finished
-    finished = "running" 
-    try:
-	    shutil.rmtree("ConvertedInvoices")
-    except OSError as e:
-	    print(e)
-    try:
-        os.mkdir("ConvertedInvoices")
-    except OSError as e:
-        print(e)
-    try:
-        shutil.rmtree("OutputFolder")
-    except OSError as e:
-        print(e)
-    try:
-        os.mkdir("OutputFolder")
-    except OSError as e:
-        print(e)
+    global statusdict
+    session['number'] = str(uuid4())
+    print(session.get('number'))
+    createdefaultfolders()
+    #global sessionid
+    sessionid = session.get('number')
+    #finished = "running" 
+    statusdict[session.get('number')] = "running"
+    
+    
 
     return render_template('index.html')
 
@@ -73,7 +93,7 @@ def upload():
     uploaded_files = request.files.getlist("file[]")
     filenames = []
     global th
-    global finished
+    #global finished
     print("IM here")
     filenames = []
     for file in uploaded_files:
@@ -90,7 +110,7 @@ def upload():
             # Move the file form the temporal folder to the upload
             # folder we setup
            
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(app.config['UPLOAD_FOLDER']+session.get('number')+"/", filename))
             #os.remove(file)
             # Save the filename into a list, we'll use it later
             
@@ -101,54 +121,63 @@ def upload():
             # Redirect the user to the uploaded_file route, which
             # will basicaly show on the browser the uploaded file
     # Load an html page with a link to each uploaded file
-    th = Thread(target=upload_async, args=())
+    
+    #th = Thread(target=upload_async, args=(session.get('number'),))
+    #que = queue.Queue()
+    th = Thread(target=upload_async, args=(session.get('number'),))
+    
     print(th)
     th.start()
+    #th.join()
+    
     
     filenames.append("output_zip.zip")
     
-    head = "Zipped Output"
+    head = "Output"
     print("Processing.....")
     return render_template('loading.html', filenames=filenames,heading=head)
 
 @app.route('/status')
 def upload_thread_status():
     #print( "Return the status of the worker thread")
-    global finished
-    print(finished)
+    global statusdict
+    #print(finished)
+    
     status = "running"
-    if finished == 'finished':
+    if  statusdict[session.get('number')] == 'finished':
         print("Task Completed")
         status = 'finished'
-    elif finished == "errored":
+    elif  statusdict[session.get('number')] == "errored":
         status = "errored"
     else:
         status = "running"
     return jsonify(dict(status=(status)))
 
 
-def upload_async():
+
+def upload_async(sessionid):
     print(" The worker function ")
-    global finished
+    global statusdict
     
-    status = MH.DecryptQR()
+    status = MH.DecryptQR(app.config['UPLOAD_FOLDER']+sessionid+"/",app.config['OUTPUT_FOLDER']+sessionid+"/",sessionid)
     
-    finished = status
+    statusdict[sessionid] =  status
 
 @app.route('/result')
 def result():
     """ Just give back the result of your heavy work """
-    filenames = [f for f in listdir(app.config["OUTPUT_FOLDER"]) if isfile(join(app.config["OUTPUT_FOLDER"], f))]
+    filenames = [f for f in listdir(app.config["OUTPUT_FOLDER"]+session.get('number')+"/") if isfile(join(app.config["OUTPUT_FOLDER"]+session.get('number')+"/", f))]
     
-    finished = 'running'
+    session['finished'] = 'running'
 
     now = datetime.now()
     dt_string1 = now.strftime("%d-%m-%Y_%H-%M-%S")
     print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_string1)+" ::::::::::::::::::::::::::::::::::")
-    return render_template('upload_main.html', filenames=filenames,heading="Zipped Output")
+    return render_template('upload_main.html', filenames=filenames,heading="Output")
 
 @app.route('/error')
 def error():
+    
     return render_template("error.html")
 
 @app.route('/uploadjson', methods=['POST'])
@@ -177,7 +206,7 @@ def uploaded_template(filename):
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['OUTPUT_FOLDER'],filename)
+    return send_from_directory(app.config['OUTPUT_FOLDER']+session.get('number')+"/",filename)
 
 @app.route('/download')
 def download_file():

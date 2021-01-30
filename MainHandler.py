@@ -14,17 +14,15 @@ from CustomPackages import jwtdecoding as JWTD
 from CustomPackages import DatabaseInteraction as DBI
 
 
-pdffolder = "./OriginFolder"
-outputfolder = "./OutputFolder"
 requirementsfile = "settings.json"
 
-def ParseLines(file):
+def ParseLines(file,sessionid):
     print(":::::::::::::::::Extracting Field::::::::::::::")
     tempdict = {}
     rf = open(requirementsfile)
     data = json.load(rf)
     for x in data['extractdata']:
-        text = OCRM.GenerateOCR(file)
+        text = OCRM.GenerateOCR(file,sessionid)
         print(text)
         regexp = x['regexexp'] + x['dataregex']
         try:
@@ -43,7 +41,7 @@ def ParseLines(file):
 
 
 
-def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
+def DecryptQR(OriginFolder,OutputFolder,sessionid):
     try:
         start_time = time.time()
         
@@ -59,8 +57,8 @@ def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
         data = json.load(settings)
 
         print("--------Started Working---------")
-        fileexists = os.path.isfile(OutputFolder+"/Generated"+dt_string+"_DATA.csv")
-        csv_file = open(OutputFolder+"/Generated"+dt_string+"_DATA.csv",mode='a')
+        fileexists = os.path.isfile(OutputFolder+"Generated"+dt_string+"_DATA.csv")
+        csv_file = open(OutputFolder+"Generated"+dt_string+"_DATA.csv",mode='a')
         
         #FieldName Updation
         fieldnames = ['PDFName']
@@ -84,23 +82,23 @@ def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
         for f in fileset:
             writedata = {}
             writedata["PDFName"] = str(Path(f).stem)+".PDF"
-            qrdata = OCRM.ParseOCR_QRcode(f)
+            qrdata = OCRM.ParseOCR_QRcode(f,sessionid)
             if qrdata != "":
                 print("here")
                 qrdataset = JWTD.jwtdecode(qrdata,requirementsfile,f)
-                if not type(qrdataset) == type.__dict__:     
+                if not type(qrdataset) == type({}):     
                     raise OSError("Jwt Parsing Failed")
                 else:
                     writedata.update(qrdataset)
             
-            extracteddata = ParseLines(f)
+            extracteddata = ParseLines(f,sessionid)
             if extracteddata:
                 print("Extracted Data :::::::::::: ")
                 print(extracteddata)
                 writedata.update(extracteddata)
             if writedata:
                 writer.writerow(writedata)
-                DBI.commitToDB(writedata,f)
+                #DBI.commitToDB(writedata,f)
 
         
             
@@ -117,16 +115,17 @@ def DecryptQR(OriginFolder=pdffolder,OutputFolder=outputfolder):
         dt_stringend = now.strftime("%d-%m-%Y_%H-%M-%S")
         print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_stringend)+" ::::::::::::::::::::::::::::::::::")
         try:
-            shutil.rmtree("ConvertedInvoices")
-        except OSError as e:
-            print(e)
-        try:
-            os.mkdir("ConvertedInvoices")
+            shutil.rmtree("ConvertedInvoices/"+sessionid)
         except OSError as e:
             print(e)
         return "finished"
     except OSError as e:
         print(e)
+        for f in fileset:
+            try:
+                os.remove(f)
+            except:
+                print("Cannot Remove File")
         return "errored"
 
 

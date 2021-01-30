@@ -40,8 +40,18 @@ STRICT = False
 
 
 
-FileSpecificlocation = "./ConvertedInvoices/"
+#FileSpecificlocation = "./ConvertedInvoices/"
 
+def setfile(sessionid):
+    FileSpecificlocation = "./ConvertedInvoices/"+sessionid+"/"
+    try:
+        shutil.rmtree(FileSpecificlocation)
+    except OSError as e:
+        print(e)
+    try:
+        os.mkdir(FileSpecificlocation)
+    except OSError as e:
+        print(e)
 def save_images(pil_images,destination):
 
     x = destination+'temp/images/'
@@ -68,8 +78,8 @@ def GenerateImagesfromPDF(filepath,destination):
     
 
 
-def GenerateOCR(filepath):
-    destinationpath = FileSpecificlocation+Path(filepath).stem+'/'
+def GenerateOCR(filepath,sessionid):
+    destinationpath = "./ConvertedInvoices/"+sessionid+"/"+Path(filepath).stem+'/'
     print("......Generating OCR.....")
     index = GenerateImagesfromPDF(filepath,destinationpath)
     text = ""
@@ -80,113 +90,10 @@ def GenerateOCR(filepath):
         x.write(text)
     return text
 
-"""def GenerateOCRTemplate(file):
-    destinationpath = './TemplateGenerator/Output/'
-    try:
-        os.mkdir(destinationpath+'temp')
-    except OSError as e:
-        print("TEMPLETEER LSSGS :"+str(e))
-    print("......Generating OCR.....")
-    index = GenerateImagesfromPDF(file,destinationpath)
-    text = ""
-    for x in range(1,index):
-        text += "\n" + pytesseract.image_to_string(Image.open(destinationpath+'temp/images/page_'+str(x)+'.jpg'))
-    with open(destinationpath+Path(file).stem+".txt","w+") as x:
-        text = unidecode(text)
-        x.write(text)
-    try:
-        shutil.rmtree(destinationpath+'temp')
-    except OSError as e:
-        print(e)"""
 
-"""def ParseOCR(datetime,filepath,text,barcodedata = {},reqfieldsfile = "requiredFields.json"):
-    print("....Parsing OCR.....")
-
-    writedict = {}
-    qrdatalist = []
-
-    f = open(reqfieldsfile) 
-    data = json.load(f)
-    fieldnames = ['PDF Name']
-    for x in data['invoices']:
-        if re.compile(x['name']).search(Path(filepath).stem):
-            for y in x['field']:
-                if y:
-                    fieldnames.append(y['FinalOutputField'])
-    for x in data['invoices']:
-        if re.compile(x['name']).search(Path(filepath).stem):
-            if 'qrdata' in x:
-                for y in x['qrdata']:
-                    if y:
-                        fieldnames.append(y["visualname"])
-	
-    print("FieldNamesAre : : : :: :  : : :: ")
-    print(fieldnames)
-	
-    #region CSV Setup
-    #fileexists = os.path.isfile("./ConvertedInvoices/"+Path(filepath).stem+"/"+Path(filepath).stem+"_RequiredFiledsOnly.csv")
-    #csv_file = open("./ConvertedInvoices/"+Path(filepath).stem+"/"+Path(filepath).stem+"_RequiredFiledsOnly.csv",mode='a')
-
-    fileexists = os.path.isfile("./FinalOutputs/"+datetime+"_DATA.csv")
-    csv_file = open("./FinalOutputs/"+datetime+"_DATA.csv",mode='a')
-
-    writer = csv.DictWriter(csv_file,fieldnames)
-    if not fileexists:
-        writer.writeheader()
-    #region end CSV SETUP
-    writedict["PDF Name"] = str(Path(filepath).stem)+".PDF"
-
-    for freg in data['invoices']:
-        if re.compile(freg['name']).search(Path(filepath).stem):
-            for fs in freg['field']:
-                datanameregex = fs['datafieldnameRegex']
-                finaloutputfield = fs['FinalOutputField']
-                dataonlyregex = fs['dataonlyRegex']
-                forregexfull = datanameregex+dataonlyregex
-                
-                
-                match = re.search(forregexfull,text,re.MULTILINE)
-                if match:
-                    print(match.group(0))
-                
-                    actualdata = re.search(dataonlyregex,match.group(0))  
-                    if  'removefirstchar' in fs:
-                        if fs['removefirstchar'] == '1':
-                            print("ACTUAL DATA :::: ")
-                            x = actualdata.group(0)
-                            print(x)
-                            tempdata = deepcopy(x)
-                            print(tempdata)
-                            tempdata = list(tempdata)
-                            tempdata.remove(tempdata[0])
-                            actualdata = "".join(tempdata)
-
-                    if 'removefirstchar' not in fs:    
-                        if actualdata:
-                            print(actualdata.group(0)) 
-                            print("Extracted INFO ::::: "+match.group(0)+":::::: Data :::::: "+actualdata.group(0))
-                            writedict[finaloutputfield] = actualdata.group(0)
-                        else:
-                            actualdata = "Not Found"
-                    else:
-                        writedict[finaloutputfield] = actualdata
-                        
-                else:
-                    writedict[finaloutputfield] = dataonlyregex
-
-    #writedict['Irn Number'] = barcodedata
-    writedict.update(barcodedata)
-    if not not writedict:
-        DI.commitToDB(writedict)
-        writer.writerow(writedict)
-    else:
-        print("Error no template for file in requiredFields.json")
-    csv_file.close()
-
-"""
-
-
-def ParseOCR_QRcode(file):
+def ParseOCR_QRcode(file,sessionid):
+    FileSpecificlocation = "./ConvertedInvoices/"+sessionid+"/"
+    setfile(sessionid)
     try:
         print("MakingDIR")
         os.mkdir(FileSpecificlocation+Path(file).stem)
