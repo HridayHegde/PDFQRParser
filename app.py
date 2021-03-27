@@ -169,10 +169,16 @@ def result():
     filenames = [f for f in listdir(app.config["OUTPUT_FOLDER"]+session.get('number')+"/") if isfile(join(app.config["OUTPUT_FOLDER"]+session.get('number')+"/", f))]
     
     session['finished'] = 'running'
-
+    
     now = datetime.now()
     dt_string1 = now.strftime("%d-%m-%Y_%H-%M-%S")
     print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_string1)+" ::::::::::::::::::::::::::::::::::")
+    try:
+        shutil.rmtree((app.config["OUTPUT_FOLDER"]+session.get('number')))
+    except OSError as e:
+        print(e)
+    
+
     return render_template('upload_main.html', filenames=filenames,heading="Output")
 
 @app.route('/error')

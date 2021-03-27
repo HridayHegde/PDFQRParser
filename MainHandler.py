@@ -91,14 +91,18 @@ def DecryptQR(OriginFolder,OutputFolder,sessionid):
                 else:
                     writedata.update(qrdataset)
             
-            extracteddata = ParseLines(f,sessionid)
-            if extracteddata:
-                print("Extracted Data :::::::::::: ")
-                print(extracteddata)
-                writedata.update(extracteddata)
-            if writedata:
-                writer.writerow(writedata)
-                #DBI.commitToDB(writedata,f)
+            try:    
+                extracteddata = ParseLines(f,sessionid)
+                if extracteddata:
+                    print("Extracted Data :::::::::::: ")
+                    print(extracteddata)
+                    writedata.update(extracteddata)
+                if writedata:
+                    writer.writerow(writedata)
+                    #DBI.commitToDB(writedata,f)
+            except OSError as e:
+                print(e)
+                return "errored"
 
         
             
@@ -106,6 +110,7 @@ def DecryptQR(OriginFolder,OutputFolder,sessionid):
         for f in fileset:
             try:
                 os.remove(f)
+                print("File Removed")
             except:
                 print("Cannot Remove File")
 
@@ -116,6 +121,7 @@ def DecryptQR(OriginFolder,OutputFolder,sessionid):
         print(":::::::::::::::::::::::::::::::::: Process Ended at "+str(dt_stringend)+" ::::::::::::::::::::::::::::::::::")
         try:
             shutil.rmtree("ConvertedInvoices/"+sessionid)
+            print("testing")
         except OSError as e:
             print(e)
         return "finished"
@@ -124,6 +130,7 @@ def DecryptQR(OriginFolder,OutputFolder,sessionid):
         for f in fileset:
             try:
                 os.remove(f)
+                print("File Removed")
             except:
                 print("Cannot Remove File")
         return "errored"

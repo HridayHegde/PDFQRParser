@@ -71,6 +71,7 @@ def commitToDB(datadict,file):
     sql = (string1)
 
     try:
+        
         # establish a new connection
         with cx_Oracle.connect(cfg.username,
                             cfg.password,
@@ -78,6 +79,7 @@ def commitToDB(datadict,file):
                             encoding=cfg.encoding) as connection:
             # create a cursor
             with connection.cursor() as cursor:
+
                 # execute the insert statement
                 cursor.execute(sql, datalist)
                 # commit work
